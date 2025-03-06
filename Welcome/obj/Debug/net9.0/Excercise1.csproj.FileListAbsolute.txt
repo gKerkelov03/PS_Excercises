@@ -1,0 +1,14 @@
+C:\Users\Georgi\Documents\Excercises\Excercise1\bin\Debug\net9.0\Excercise1.exe
+C:\Users\Georgi\Documents\Excercises\Excercise1\bin\Debug\net9.0\Excercise1.deps.json
+C:\Users\Georgi\Documents\Excercises\Excercise1\bin\Debug\net9.0\Excercise1.runtimeconfig.json
+C:\Users\Georgi\Documents\Excercises\Excercise1\bin\Debug\net9.0\Excercise1.dll
+C:\Users\Georgi\Documents\Excercises\Excercise1\bin\Debug\net9.0\Excercise1.pdb
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\Excercise1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\Excercise1.AssemblyInfoInputs.cache
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\Excercise1.AssemblyInfo.cs
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\Excercise1.csproj.CoreCompileInputs.cache
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\Excercise1.dll
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\refint\Excercise1.dll
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\Excercise1.pdb
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\Excercise1.genruntimeconfig.cache
+C:\Users\Georgi\Documents\Excercises\Excercise1\obj\Debug\net9.0\ref\Excercise1.dll

@@ -1,0 +1,14 @@
+C:\Users\Georgi\Documents\Excercises\Welcome\bin\Debug\net9.0\Welcome.exe
+C:\Users\Georgi\Documents\Excercises\Welcome\bin\Debug\net9.0\Welcome.deps.json
+C:\Users\Georgi\Documents\Excercises\Welcome\bin\Debug\net9.0\Welcome.runtimeconfig.json
+C:\Users\Georgi\Documents\Excercises\Welcome\bin\Debug\net9.0\Welcome.dll
+C:\Users\Georgi\Documents\Excercises\Welcome\bin\Debug\net9.0\Welcome.pdb
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\Welcome.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\Welcome.AssemblyInfoInputs.cache
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\Welcome.AssemblyInfo.cs
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\Welcome.csproj.CoreCompileInputs.cache
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\Welcome.dll
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\refint\Welcome.dll
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\Welcome.pdb
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\Welcome.genruntimeconfig.cache
+C:\Users\Georgi\Documents\Excercises\Welcome\obj\Debug\net9.0\ref\Welcome.dll
