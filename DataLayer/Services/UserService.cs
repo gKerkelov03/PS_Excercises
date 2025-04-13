@@ -22,7 +22,7 @@ namespace DataLayer.Services
 
         public async Task<DatabaseUser> GetUserByNameAsync(string name)
         {
-            var users = await _userRepository.FindAsync(u => u.Name == name);
+            var users = await _userRepository.FindAsync(u => u.Username == name);
             return users.FirstOrDefault();
         }
 

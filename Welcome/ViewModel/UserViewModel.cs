@@ -14,10 +14,10 @@ namespace Welcome.ViewModel
 
         public string Name 
         {
-            get => this._user.Name;
+            get => this._user.Username;
             set 
             {
-                this._user.Name = value; 
+                this._user.Username = value; 
             }
         }
 

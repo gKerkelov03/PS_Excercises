@@ -62,7 +62,7 @@ class Program
         Console.WriteLine("\nAll Users:");
         foreach (var user in users)
         {
-            Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Role: {user.Role}");
+            Console.WriteLine($"ID: {user.Id}, Name: {user.Username}, Role: {user.Role}");
         }
         logger.LogInfo("Retrieved all users");
     }
@@ -77,7 +77,7 @@ class Program
         
         var newUser = new DatabaseUser
         {
-            Name = username,
+            Username = username,
             Password = password,
             Role = UserRole.STUDENT,
             Expires = DateTime.Now.AddYears(1)
@@ -95,7 +95,7 @@ class Program
         Console.Write("Enter username to delete: ");
         var username = Console.ReadLine();
         
-        var user = context.Users.FirstOrDefault(u => u.Name == username);
+        var user = context.Users.FirstOrDefault(u => u.Username == username);
         if (user != null)
         {
             context.Users.Remove(user);

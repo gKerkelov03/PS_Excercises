@@ -2,7 +2,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
-using Welcome.Model;
 using DataLayer.Services;
 using UI.Windows;
 using DataLayer.Model;
@@ -18,21 +17,21 @@ namespace UI.ViewModels
     {
         private readonly IUserService _userService;
         private readonly DatabaseContext _dbContext;
-        private readonly User _currentUser;
-        private readonly ObservableCollection<User> _users;
-        private User? _selectedUser;
+        private readonly DatabaseUser _currentUser;
+        private readonly ObservableCollection<DatabaseUser> _users;
+        private DatabaseUser? _selectedUser;
 
         public ICommand AddUserCommand { get; }
         public ICommand EditUserCommand { get; }
         public ICommand DeleteUserCommand { get; }
         public ICommand ViewLogsCommand { get; }
 
-        public MainViewModel(IUserService userService, DatabaseContext dbContext, User currentUser)
+        public MainViewModel(IUserService userService, DatabaseContext dbContext, DatabaseUser currentUser)
         {
             _userService = userService;
             _dbContext = dbContext;
             _currentUser = currentUser;
-            _users = new ObservableCollection<User>();
+            _users = new ObservableCollection<DatabaseUser>();
 
             AddUserCommand = new AddUserCommand(this);
             EditUserCommand = new EditUserCommand(this);
@@ -42,9 +41,9 @@ namespace UI.ViewModels
             LoadUsersAsync().ConfigureAwait(false);
         }
 
-        public ObservableCollection<User> Users => _users;
+        public ObservableCollection<DatabaseUser> Users => _users;
 
-        public User? SelectedUser
+        public DatabaseUser? SelectedUser
         {
             get => _selectedUser;
             set
@@ -81,25 +80,28 @@ namespace UI.ViewModels
                     return;
                 }
 
-                if (_selectedUser.Id == _currentUser.Id)
+                if (_selectedUser.Username == _currentUser.Username)
                 {
                     MessageBox.Show("You cannot delete your own account.");
                     return;
                 }
 
-                var result = MessageBox.Show($"Are you sure you want to delete user {_selectedUser.Name}?", "Confirm Delete", 
+                var result = MessageBox.Show($"Are you sure you want to delete user {_selectedUser.Username}?", "Confirm Delete", 
                     MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 
                 if (result == MessageBoxResult.Yes)
                 {
-                    var dbUser = await _dbContext.Users.FindAsync(_selectedUser.Id);
+                    var dbUser = await _userService.GetUserByIdAsync(_selectedUser.Id);
                     if (dbUser != null)
                     {
-                        _dbContext.Users.Remove(dbUser);
-                        await _dbContext.SaveChangesAsync();
+                        await _userService.DeleteUserAsync(dbUser);
                         _users.Remove(_selectedUser);
                         _selectedUser = null;
                         OnPropertyChanged(nameof(SelectedUser));
+                    }
+                    else
+                    {
+                        MessageBox.Show("User not found in database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -119,7 +121,14 @@ namespace UI.ViewModels
                     return;
                 }
 
-                var editWindow = new AddEditUserWindow(_userService, _selectedUser);
+                var dbUser = await _userService.GetUserByIdAsync(_selectedUser.Id);
+                if (dbUser == null)
+                {
+                    MessageBox.Show("User not found in database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var editWindow = new AddEditUserWindow(_userService, dbUser);
                 if (editWindow.ShowDialog() == true)
                 {
                     await LoadUsersAsync();

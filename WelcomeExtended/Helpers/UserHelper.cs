@@ -6,6 +6,6 @@ public static class UserHelper
 {
     public static string ToStringHelper(this User user)
     {
-       return  $"{user.Name}: {user.Role}";
+       return  $"{user.Username}: {user.Role}";
     }
 }

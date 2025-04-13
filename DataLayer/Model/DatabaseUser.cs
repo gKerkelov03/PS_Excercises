@@ -8,6 +8,6 @@ public class DatabaseUser : User
 {
     [Key] 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public new int Id { get; set; }
+    public int Id { get; set; }
     
 }

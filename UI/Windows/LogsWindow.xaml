@@ -16,6 +16,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Timestamp, StringFormat=dd.MM.yyyy HH:mm:ss}" Width="150"/>
                 <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="100"/>
+                <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
                 <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>

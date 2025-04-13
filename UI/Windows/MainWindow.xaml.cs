@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using DataLayer.Services;
 using UI.ViewModels;
-using Welcome.Model;
+using DataLayer.Model;
 using DataLayer.Database;
 
 namespace UI.Windows;
@@ -11,7 +11,7 @@ namespace UI.Windows;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow(IUserService userService, DatabaseContext dbContext, User currentUser)
+    public MainWindow(IUserService userService, DatabaseContext dbContext, DatabaseUser currentUser)
     {
         InitializeComponent();
         DataContext = new MainViewModel(userService, dbContext, currentUser);

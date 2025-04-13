@@ -28,7 +28,7 @@ namespace DataLayer.Database
             var user = new DatabaseUser
             {
                 Id = 1,
-                Name = "admin",
+                Username = "admin",
                 Password = "admin",
                 Role = UserRole.ADMIN,
                 Expires = DateTime.Now.AddYears(1)
@@ -37,7 +37,7 @@ namespace DataLayer.Database
             var user2 = new DatabaseUser
             {
                 Id = 2,
-                Name = "student",
+                Username = "student",
                 Password = "student",
                 Role = UserRole.STUDENT,
                 Expires = DateTime.Now.AddYears(1)

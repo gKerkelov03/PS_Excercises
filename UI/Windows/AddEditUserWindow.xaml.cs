@@ -1,6 +1,5 @@
 using System.Windows;
 using DataLayer.Services;
-using Welcome.Model;
 using Welcome.Others;
 using DataLayer.Model;
 
@@ -9,9 +8,9 @@ namespace UI.Windows
     public partial class AddEditUserWindow : Window
     {
         private readonly IUserService _userService;
-        private readonly User? _existingUser;
+        private readonly DatabaseUser? _existingUser;
 
-        public AddEditUserWindow(IUserService userService, User? existingUser = null)
+        public AddEditUserWindow(IUserService userService, DatabaseUser? existingUser = null)
         {
             InitializeComponent();
             _userService = userService;
@@ -23,7 +22,7 @@ namespace UI.Windows
             if (_existingUser != null)
             {
                 Title = "Edit User";
-                UsernameTextBox.Text = _existingUser.Name;
+                UsernameTextBox.Text = _existingUser.Username;
                 PasswordBox.Password = _existingUser.Password;
                 RoleComboBox.SelectedItem = _existingUser.Role;
                 ExpiresDatePicker.SelectedDate = _existingUser.Expires;
@@ -59,29 +58,28 @@ namespace UI.Windows
             {
                 if (_existingUser != null)
                 {
-                    // Update existing user
+                    // Get the existing user from the database
                     var existingDbUser = await _userService.GetUserByIdAsync(_existingUser.Id);
-                    if (existingDbUser != null)
-                    {
-                        existingDbUser.Name = UsernameTextBox.Text;
-                        existingDbUser.Password = PasswordBox.Password;
-                        existingDbUser.Role = (UserRole)RoleComboBox.SelectedItem;
-                        existingDbUser.Expires = ExpiresDatePicker.SelectedDate.Value;
-                        
-                        await _userService.UpdateUserAsync(existingDbUser);
-                    }
-                    else
+                    if (existingDbUser == null)
                     {
                         MessageBox.Show("User not found in database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+
+                    // Update the existing user's properties
+                    existingDbUser.Username = UsernameTextBox.Text;
+                    existingDbUser.Password = PasswordBox.Password;
+                    existingDbUser.Role = (UserRole)RoleComboBox.SelectedItem;
+                    existingDbUser.Expires = ExpiresDatePicker.SelectedDate.Value;
+                    
+                    await _userService.UpdateUserAsync(existingDbUser);
                 }
                 else
                 {
                     // Create new user
                     var newUser = new DatabaseUser
                     {
-                        Name = UsernameTextBox.Text,
+                        Username = UsernameTextBox.Text,
                         Password = PasswordBox.Password,
                         Role = (UserRole)RoleComboBox.SelectedItem,
                         Expires = ExpiresDatePicker.SelectedDate.Value

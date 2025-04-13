@@ -23,7 +23,7 @@ public class UserData
     {
         foreach (var user in _users)
         {
-            if (user.Name == user.Name && user.Password == password)
+            if (user.Username == user.Username && user.Password == password)
             {
                return true; 
             }
@@ -34,13 +34,13 @@ public class UserData
 
     public bool ValidateUserLambda(string username, string password)
     {
-        return _users.Where(u => u.Name == username && u.Password == password).Any();
+        return _users.Where(u => u.Username == username && u.Password == password).Any();
     }
 
     public bool ValidateUserLinq(string username, string password)
     {
         var result = from user in _users
-            where user.Name == username && user.Password == password
+            where user.Username == username && user.Password == password
             select user.Id;
         
         return result != null;
@@ -48,12 +48,12 @@ public class UserData
 
     public User GetUser(string username, string password)
     {
-        return _users.FirstOrDefault(u => u.Name == username && u.Password == password);
+        return _users.FirstOrDefault(u => u.Username == username && u.Password == password);
     }
 
     public void SetActive(string username, DateTime date)
     {
-        var user = _users.FirstOrDefault(u => u.Name == username);
+        var user = _users.FirstOrDefault(u => u.Username == username);
         
         if (user != null)
         {
@@ -65,7 +65,7 @@ public class UserData
 
     public void AssignUserRole(string username, UserRole role)
     {
-        var user = _users.FirstOrDefault(u => u.Name == username);
+        var user = _users.FirstOrDefault(u => u.Username == username);
         
         if (user != null)
         {

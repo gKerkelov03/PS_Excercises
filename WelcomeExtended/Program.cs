@@ -24,25 +24,25 @@ try
     UserData userData = new UserData();
     
     var studentUser = new User();
-    studentUser.Name = "gosho";
+    studentUser.Username = "gosho";
     studentUser.Password = "gosho123";
     studentUser.Role = UserRole.STUDENT;
     
     
     var student2 = new User();
-    student2.Name = "Student2";
+    student2.Username = "Student2";
     student2.Password = "123";
     student2.Role = UserRole.STUDENT;
     userData.AddUser(student2);
     
     var teacher = new User();
-    teacher.Name = "Teacher";
+    teacher.Username = "Teacher";
     teacher.Password = "1234";
     teacher.Role = UserRole.PROFESSOR;
     userData.AddUser(teacher);
     
     var admin = new User();
-    admin.Name = "Admin";
+    admin.Username = "Admin";
     admin.Password = "12345";
     admin.Role = UserRole.ADMIN;
     userData.AddUser(admin);

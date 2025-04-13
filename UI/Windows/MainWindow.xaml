@@ -27,7 +27,7 @@
                   Margin="10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                <DataGridTextColumn Header="Username" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
                 <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="100"/>
                 <DataGridTextColumn Header="Expires" Binding="{Binding Expires}" Width="150"/>
             </DataGrid.Columns>
