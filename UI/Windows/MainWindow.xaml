@@ -16,25 +16,25 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Button Content="Add User" Command="{Binding AddUserCommand}" Margin="0,0,10,0" Width="100"/>
-            <Button Content="Edit User" Command="{Binding EditUserCommand}" Margin="0,0,10,0" Width="100"/>
-            <Button Content="Delete User" Command="{Binding DeleteUserCommand}" Margin="0,0,10,0" Width="100"/>
-            <Button Content="View Logs" Command="{Binding ViewLogsCommand}" Width="100"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <Button Content="Add User" Command="{Binding AddUserCommand}" Margin="0,0,10,0" Padding="10,5"/>
+            <Button Content="Edit User" Command="{Binding EditUserCommand}" Margin="0,0,10,0" Padding="10,5"/>
+            <Button Content="Delete User" Command="{Binding DeleteUserCommand}" Margin="0,0,10,0" Padding="10,5"/>
+            <Button Content="View Logs" Command="{Binding ViewLogsCommand}" Margin="0,0,10,0" Padding="10,5"/>
+            <Button Content="Manage Disciplines" Command="{Binding ManageDisciplinesCommand}" Padding="10,5"/>
         </StackPanel>
 
         <DataGrid Grid.Row="1" 
                   ItemsSource="{Binding Users}" 
                   SelectedItem="{Binding SelectedUser}"
-                  AutoGenerateColumns="False" 
+                  AutoGenerateColumns="False"
                   IsReadOnly="True"
                   Margin="10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                 <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
-                <DataGridTextColumn Header="Password" Binding="{Binding Password, Converter={StaticResource PasswordConverter}}" Width="100"/>
-                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="100"/>
-                <DataGridTextColumn Header="Expires" Binding="{Binding Expires}" Width="150"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
+                <DataGridTextColumn Header="Faculty Number" Binding="{Binding FacultyNumber}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

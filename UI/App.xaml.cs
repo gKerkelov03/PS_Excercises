@@ -37,20 +37,26 @@ public partial class App : Application
         services.AddDbContext<DatabaseContext>(options =>
             options.UseSqlite($"Data Source={databasePath}"));
 
-        // Register services
+        // Register repositories
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped<IDisciplineRepository, DisciplineRepository>();
+
+        // Register services
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IDisciplineService, DisciplineService>();
         services.AddScoped<Logger>();
 
         // Register ViewModels
         services.AddTransient<LoginViewModel>();
         services.AddTransient<MainViewModel>();
         services.AddTransient<LogsViewModel>();
+        services.AddTransient<DisciplineManagementViewModel>();
 
         // Register Windows
         services.AddTransient<LoginWindow>();
         services.AddTransient<MainWindow>();
         services.AddTransient<LogsWindow>();
+        services.AddTransient<DisciplineManagementWindow>();
     }
 
     protected override void OnStartup(StartupEventArgs e)
@@ -62,6 +68,9 @@ public partial class App : Application
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
             dbContext.Database.EnsureCreated();
+            
+            // Seed the database with our custom seeder
+            DatabaseSeeder.SeedData(dbContext);
         }
 
         var loginWindow = _serviceProvider.GetRequiredService<LoginWindow>();

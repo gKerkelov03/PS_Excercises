@@ -8,9 +8,18 @@ namespace UI.Windows
 {
     public partial class LoginWindow : Window
     {
-        public LoginWindow(IUserService userService, DatabaseContext dbContext)
+        private IUserService? _userService;
+        private DatabaseContext? _dbContext;
+
+        public LoginWindow()
         {
             InitializeComponent();
+        }
+
+        public LoginWindow(IUserService userService, DatabaseContext dbContext) : this()
+        {
+            _userService = userService;
+            _dbContext = dbContext;
             var logger = new Logger(dbContext);
             DataContext = new LoginViewModel(userService, dbContext, logger);
         }

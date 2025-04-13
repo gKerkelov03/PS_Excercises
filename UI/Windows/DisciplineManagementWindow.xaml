@@ -1,0 +1,51 @@
+<Window x:Class="UI.Windows.DisciplineManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.Windows"
+        mc:Ignorable="d"
+        Title="Discipline Management" Height="600" Width="800"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Add Discipline" Command="{Binding AddDisciplineCommand}" Width="120" Margin="0,0,10,0"/>
+            <Button Content="Edit Discipline" Command="{Binding EditDisciplineCommand}" Width="120" Margin="0,0,10,0"/>
+            <Button Content="Delete Discipline" Command="{Binding DeleteDisciplineCommand}" Width="120" Margin="0,0,10,0"/>
+            <Button Content="Refresh" Command="{Binding RefreshCommand}" Width="120"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <TextBox Text="{Binding DisciplineViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     Padding="5" Margin="0,0,0,0"/>
+            <TextBlock Text="Search disciplines..." Foreground="Gray" Margin="5,0,0,0" 
+                       VerticalAlignment="Center" IsHitTestVisible="False"
+                       Visibility="{Binding DisciplineViewModel.SearchText, Converter={StaticResource StringToVisibilityConverter}}"/>
+        </Grid>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding DisciplineViewModel.Disciplines}"
+                  SelectedItem="{Binding DisciplineViewModel.SelectedDiscipline}"
+                  AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Year" Binding="{Binding Year}" Width="Auto"/>
+                <DataGridTextColumn Header="Semester" Binding="{Binding Semester}" Width="Auto"/>
+                <DataGridTextColumn Header="Credits" Binding="{Binding Credits}" Width="Auto"/>
+                <DataGridTextColumn Header="Lecturer" Binding="{Binding Lecturer}" Width="*"/>
+                <DataGridTextColumn Header="Max Students" Binding="{Binding MaxStudents}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBox Grid.Row="3" Text="{Binding DisciplineViewModel.StatisticsText}"
+                 Margin="0,10,0,0" Padding="5" IsReadOnly="True"
+                 TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                 Height="100"/>
+    </Grid>
+</Window> 

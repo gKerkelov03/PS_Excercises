@@ -13,37 +13,34 @@ namespace DataLayer.Database
 
         public DbSet<DatabaseUser> Users { get; set; }
         public DbSet<LogEntry> LogEntries { get; set; }
+        public DbSet<Discipline> Disciplines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<DatabaseUser>()
-                .HasKey(e => e.Id);
+            modelBuilder.Entity<DatabaseUser>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.FacultyNumber).IsRequired();
+                entity.Property(e => e.Email).IsRequired();
+                entity.Property(e => e.FirstName);
+                entity.Property(e => e.LastName);
+                entity.Property(e => e.PhoneNumber);
+                entity.Property(e => e.Department);
+                entity.Property(e => e.DateOfBirth);
+                entity.Property(e => e.Address);
+                entity.Property(e => e.CreatedAt);
+                entity.Property(e => e.LastLogin);
+                entity.Property(e => e.IsActive);
+                entity.Property(e => e.ProfilePicturePath);
+            });
 
             modelBuilder.Entity<LogEntry>()
                 .HasKey(e => e.Id);
 
-            // Seed data
-            var user = new DatabaseUser
-            {
-                Id = 1,
-                Username = "admin",
-                Password = "admin",
-                Role = UserRole.ADMIN,
-                Expires = DateTime.Now.AddYears(1)
-            };
-
-            var user2 = new DatabaseUser
-            {
-                Id = 2,
-                Username = "student",
-                Password = "student",
-                Role = UserRole.STUDENT,
-                Expires = DateTime.Now.AddYears(1)
-            };
-
-            modelBuilder.Entity<DatabaseUser>().HasData(user, user2);
+            modelBuilder.Entity<Discipline>()
+                .HasKey(e => e.Id);
         }
     }
 } 

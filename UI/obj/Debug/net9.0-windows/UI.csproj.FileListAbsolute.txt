@@ -151,3 +151,8 @@ C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\Logi
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\LoginWindow.baml
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\AddEditUserWindow.g.cs
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\AddEditUserWindow.baml
+C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\DisciplineEditWindow.g.cs
+C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\DisciplineManagementWindow.g.cs
+C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\DisciplineEditWindow.baml
+C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\DisciplineManagementWindow.baml
+C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\App.baml

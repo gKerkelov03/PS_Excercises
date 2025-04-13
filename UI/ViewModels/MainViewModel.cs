@@ -11,6 +11,7 @@ using Welcome.Others;
 using System.Windows.Input;
 using UI.Commands;
 using DataLayer;
+using DataLayer.Repositories;
 
 namespace UI.ViewModels
 {
@@ -21,12 +22,14 @@ namespace UI.ViewModels
         private readonly DatabaseUser _currentUser;
         private readonly ObservableCollection<DatabaseUser> _users;
         private readonly Logger _logger;
+        private readonly DisciplineService _disciplineService;
         private DatabaseUser? _selectedUser;
 
         public ICommand AddUserCommand { get; }
         public ICommand EditUserCommand { get; }
         public ICommand DeleteUserCommand { get; }
         public ICommand ViewLogsCommand { get; }
+        public ICommand ManageDisciplinesCommand { get; }
 
         public MainViewModel(IUserService userService, DatabaseContext dbContext, DatabaseUser currentUser, Logger logger)
         {
@@ -34,12 +37,14 @@ namespace UI.ViewModels
             _dbContext = dbContext;
             _currentUser = currentUser;
             _logger = logger;
+            _disciplineService = new DisciplineService(new DisciplineRepository(_dbContext));
             _users = new ObservableCollection<DatabaseUser>();
 
             AddUserCommand = new AddUserCommand(this);
             EditUserCommand = new EditUserCommand(this);
             DeleteUserCommand = new DeleteUserCommand(this);
             ViewLogsCommand = new ViewLogsCommand(this);
+            ManageDisciplinesCommand = new ManageDisciplinesCommand(this);
 
             LoadUsersAsync().ConfigureAwait(false);
         }
@@ -174,6 +179,22 @@ namespace UI.ViewModels
             {
                 MessageBox.Show($"Error viewing logs: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 _logger.LogError($"Error viewing logs: {ex.Message}", _currentUser.Username);
+            }
+        }
+
+        public async Task ManageDisciplinesAsync()
+        {
+            try
+            {
+                var disciplineManagementViewModel = new DisciplineManagementViewModel(_disciplineService);
+                var disciplineWindow = new DisciplineManagementWindow(disciplineManagementViewModel);
+                disciplineWindow.Show();
+                _logger.LogInfo("Opened discipline management", _currentUser.Username);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening discipline management: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error opening discipline management: {ex.Message}", _currentUser.Username);
             }
         }
     }
