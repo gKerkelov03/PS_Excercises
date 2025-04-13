@@ -31,7 +31,6 @@ namespace UI.ViewModels
             AddDisciplineCommand = new AddDisciplineCommand(this);
             EditDisciplineCommand = new EditDisciplineCommand(this);
             DeleteDisciplineCommand = new DeleteDisciplineCommand(this);
-            RefreshCommand = new RefreshCommand(this);
             
             _ = LoadDisciplinesAsync();
         }
@@ -80,7 +79,6 @@ namespace UI.ViewModels
         public AddDisciplineCommand AddDisciplineCommand { get; }
         public EditDisciplineCommand EditDisciplineCommand { get; }
         public DeleteDisciplineCommand DeleteDisciplineCommand { get; }
-        public RefreshCommand RefreshCommand { get; }
 
         public async void ExecuteAddDiscipline(object parameter)
         {
@@ -112,11 +110,31 @@ namespace UI.ViewModels
         {
             if (SelectedDiscipline == null) return;
 
-            var editWindow = new DisciplineEditWindow(SelectedDiscipline);
+            var disciplineToEdit = new Discipline
+            {
+                Id = SelectedDiscipline.Id,
+                Name = SelectedDiscipline.Name,
+                Description = SelectedDiscipline.Description,
+                Year = SelectedDiscipline.Year,
+                Semester = SelectedDiscipline.Semester,
+                Credits = SelectedDiscipline.Credits,
+                Lecturer = SelectedDiscipline.Lecturer,
+                MaxStudents = SelectedDiscipline.MaxStudents
+            };
+
+            var editWindow = new DisciplineEditWindow(disciplineToEdit);
             if (editWindow.ShowDialog() == true)
             {
                 try
                 {
+                    SelectedDiscipline.Name = disciplineToEdit.Name;
+                    SelectedDiscipline.Description = disciplineToEdit.Description;
+                    SelectedDiscipline.Year = disciplineToEdit.Year;
+                    SelectedDiscipline.Semester = disciplineToEdit.Semester;
+                    SelectedDiscipline.Credits = disciplineToEdit.Credits;
+                    SelectedDiscipline.Lecturer = disciplineToEdit.Lecturer;
+                    SelectedDiscipline.MaxStudents = disciplineToEdit.MaxStudents;
+
                     await _disciplineService.UpdateDisciplineAsync(SelectedDiscipline);
                     await LoadDisciplinesAsync();
                     _logger.LogInfo($"Updated discipline: {SelectedDiscipline.Name}", _currentUsername);
@@ -143,10 +161,11 @@ namespace UI.ViewModels
             {
                 try
                 {
+                    var disciplineId = SelectedDiscipline.Id;
                     var disciplineName = SelectedDiscipline.Name;
-                    await _disciplineService.DeleteDisciplineAsync(SelectedDiscipline.Id);
-                    SelectedDiscipline = null;
+                    await _disciplineService.DeleteDisciplineAsync(disciplineId);
                     await LoadDisciplinesAsync();
+                    SelectedDiscipline = null;
                     _logger.LogInfo($"Deleted discipline: {disciplineName}", _currentUsername);
                 }
                 catch (Exception ex)
@@ -155,12 +174,6 @@ namespace UI.ViewModels
                     _logger.LogError($"Error deleting discipline: {ex.Message}", _currentUsername);
                 }
             }
-        }
-
-        public async void ExecuteRefresh(object parameter)
-        {
-            await LoadDisciplinesAsync();
-            _logger.LogInfo("Refreshed disciplines list", _currentUsername);
         }
 
         private async Task LoadDisciplinesAsync()

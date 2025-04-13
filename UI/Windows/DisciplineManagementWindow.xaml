@@ -18,8 +18,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
             <Button Content="Add Discipline" Command="{Binding AddDisciplineCommand}" Width="120" Margin="0,0,10,0"/>
             <Button Content="Edit Discipline" Command="{Binding EditDisciplineCommand}" Width="120" Margin="0,0,10,0"/>
-            <Button Content="Delete Discipline" Command="{Binding DeleteDisciplineCommand}" Width="120" Margin="0,0,10,0"/>
-            <Button Content="Refresh" Command="{Binding RefreshCommand}" Width="120"/>
+            <Button Content="Delete Discipline" Command="{Binding DeleteDisciplineCommand}" Width="120"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,0,0,10">
