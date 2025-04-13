@@ -3,7 +3,7 @@ using UI.ViewModels;
 
 namespace UI.Commands
 {
-    public class LoginCommand : CommandBase
+    public class LoginCommand : ICommand
     {
         private readonly LoginViewModel _viewModel;
 
@@ -12,9 +12,13 @@ namespace UI.Commands
             _viewModel = viewModel;
         }
 
-        public override void Execute(object parameter)
+        public event EventHandler? CanExecuteChanged;
+
+        public bool CanExecute(object? parameter) => true;
+
+        public async void Execute(object? parameter)
         {
-            _viewModel.Login();
+            await _viewModel.LoginAsync();
         }
     }
 } 

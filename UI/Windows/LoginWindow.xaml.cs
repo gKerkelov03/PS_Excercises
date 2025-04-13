@@ -1,7 +1,8 @@
 using System.Windows;
 using DataLayer.Services;
-using UI.ViewModels;
 using DataLayer.Database;
+using UI.ViewModels;
+using DataLayer;
 
 namespace UI.Windows
 {
@@ -10,7 +11,8 @@ namespace UI.Windows
         public LoginWindow(IUserService userService, DatabaseContext dbContext)
         {
             InitializeComponent();
-            DataContext = new LoginViewModel(userService, dbContext);
+            var logger = new Logger(dbContext);
+            DataContext = new LoginViewModel(userService, dbContext, logger);
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

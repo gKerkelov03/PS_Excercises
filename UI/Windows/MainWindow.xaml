@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI.Windows"
+        xmlns:converters="clr-namespace:UI.Converters"
         mc:Ignorable="d"
         Title="User Management" Height="450" Width="800">
+    <Window.Resources>
+        <converters:PasswordConverter x:Key="PasswordConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -28,6 +32,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                 <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
+                <DataGridTextColumn Header="Password" Binding="{Binding Password, Converter={StaticResource PasswordConverter}}" Width="100"/>
                 <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="100"/>
                 <DataGridTextColumn Header="Expires" Binding="{Binding Expires}" Width="150"/>
             </DataGrid.Columns>

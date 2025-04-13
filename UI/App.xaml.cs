@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using DataLayer.Database;
@@ -9,6 +7,7 @@ using DataLayer.Services;
 using UI.Windows;
 using UI.ViewModels;
 using System.IO;
+using DataLayer;
 
 namespace UI;
 
@@ -41,6 +40,7 @@ public partial class App : Application
         // Register services
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<Logger>();
 
         // Register ViewModels
         services.AddTransient<LoginViewModel>();

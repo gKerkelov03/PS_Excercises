@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP
 C:\Users\Georgi\Documents\PS_Excercises\UI\App.xaml
-6-206659901
+4-1340750515
 
-20-825871407
+17-364580952
 220-1332873370
-Components\LogsList.xaml;Components\StudentsList.xaml;Windows\AddEditUserWindow.xaml;Windows\LoginWindow.xaml;Windows\LogsWindow.xaml;Windows\MainWindow.xaml;
+Windows\AddEditUserWindow.xaml;Windows\LoginWindow.xaml;Windows\LogsWindow.xaml;Windows\MainWindow.xaml;
 
 False
 

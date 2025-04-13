@@ -127,13 +127,11 @@ C:\Users\Georgi\Documents\PS_Excercises\UI\bin\Debug\net9.0-windows\Welcome.dll
 C:\Users\Georgi\Documents\PS_Excercises\UI\bin\Debug\net9.0-windows\DataLayer.pdb
 C:\Users\Georgi\Documents\PS_Excercises\UI\bin\Debug\net9.0-windows\Welcome.pdb
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI.csproj.AssemblyReference.cache
-C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Components\StudentsList.g.cs
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\MainWindow.g.cs
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\App.g.cs
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI_MarkupCompile.cache
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI_MarkupCompile.lref
-C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Components\StudentsList.baml
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\MainWindow.baml
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI.g.resources
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI.GeneratedMSBuildEditorConfig.editorconfig
@@ -147,9 +145,7 @@ C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\refint\UI.dl
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI.pdb
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI.genruntimeconfig.cache
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\ref\UI.dll
-C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Components\LogsList.g.cs
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\LogsWindow.g.cs
-C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Components\LogsList.baml
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\LogsWindow.baml
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\LoginWindow.g.cs
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\Windows\LoginWindow.baml

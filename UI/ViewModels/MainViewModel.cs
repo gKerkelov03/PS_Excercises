@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Welcome.Others;
 using System.Windows.Input;
 using UI.Commands;
+using DataLayer;
 
 namespace UI.ViewModels
 {
@@ -19,6 +20,7 @@ namespace UI.ViewModels
         private readonly DatabaseContext _dbContext;
         private readonly DatabaseUser _currentUser;
         private readonly ObservableCollection<DatabaseUser> _users;
+        private readonly Logger _logger;
         private DatabaseUser? _selectedUser;
 
         public ICommand AddUserCommand { get; }
@@ -26,11 +28,12 @@ namespace UI.ViewModels
         public ICommand DeleteUserCommand { get; }
         public ICommand ViewLogsCommand { get; }
 
-        public MainViewModel(IUserService userService, DatabaseContext dbContext, DatabaseUser currentUser)
+        public MainViewModel(IUserService userService, DatabaseContext dbContext, DatabaseUser currentUser, Logger logger)
         {
             _userService = userService;
             _dbContext = dbContext;
             _currentUser = currentUser;
+            _logger = logger;
             _users = new ObservableCollection<DatabaseUser>();
 
             AddUserCommand = new AddUserCommand(this);
@@ -53,20 +56,40 @@ namespace UI.ViewModels
             }
         }
 
-        public async Task LoadUsersAsync()
+        private async Task LoadUsersAsync()
         {
             try
             {
-                _users.Clear();
                 var users = await _userService.GetAllUsersAsync();
+                _users.Clear();
                 foreach (var user in users)
                 {
                     _users.Add(user);
                 }
+                _logger.LogInfo("Loaded all users", _currentUser.Username);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading users: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error loading users: {ex.Message}", _currentUser.Username);
+            }
+        }
+
+        public async Task AddUserAsync()
+        {
+            try
+            {
+                var addWindow = new AddEditUserWindow(_userService);
+                if (addWindow.ShowDialog() == true)
+                {
+                    await LoadUsersAsync();
+                    _logger.LogInfo("Added new user", _currentUser.Username);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error adding user: {ex.Message}", _currentUser.Username);
             }
         }
 
@@ -80,34 +103,23 @@ namespace UI.ViewModels
                     return;
                 }
 
-                if (_selectedUser.Username == _currentUser.Username)
-                {
-                    MessageBox.Show("You cannot delete your own account.");
-                    return;
-                }
+                var result = MessageBox.Show(
+                    $"Are you sure you want to delete user {_selectedUser.Username}?",
+                    "Confirm Delete",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
 
-                var result = MessageBox.Show($"Are you sure you want to delete user {_selectedUser.Username}?", "Confirm Delete", 
-                    MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                
                 if (result == MessageBoxResult.Yes)
                 {
-                    var dbUser = await _userService.GetUserByIdAsync(_selectedUser.Id);
-                    if (dbUser != null)
-                    {
-                        await _userService.DeleteUserAsync(dbUser);
-                        _users.Remove(_selectedUser);
-                        _selectedUser = null;
-                        OnPropertyChanged(nameof(SelectedUser));
-                    }
-                    else
-                    {
-                        MessageBox.Show("User not found in database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    await _userService.DeleteUserAsync(_selectedUser);
+                    await LoadUsersAsync();
+                    _logger.LogInfo($"Deleted user: {_selectedUser.Username}", _currentUser.Username);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error deleting user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error deleting user: {ex.Message}", _currentUser.Username);
             }
         }
 
@@ -132,11 +144,13 @@ namespace UI.ViewModels
                 if (editWindow.ShowDialog() == true)
                 {
                     await LoadUsersAsync();
+                    _logger.LogInfo($"Edited user: {dbUser.Username}", _currentUser.Username);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error editing user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error editing user: {ex.Message}", _currentUser.Username);
             }
         }
 
@@ -154,26 +168,12 @@ namespace UI.ViewModels
                     logsWindow.AddLog(log);
                 }
                 logsWindow.Show();
+                _logger.LogInfo("Viewed logs", _currentUser.Username);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error viewing logs: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        public async Task AddUserAsync()
-        {
-            try
-            {
-                var addWindow = new AddEditUserWindow(_userService);
-                if (addWindow.ShowDialog() == true)
-                {
-                    await LoadUsersAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error adding user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error viewing logs: {ex.Message}", _currentUser.Username);
             }
         }
     }
