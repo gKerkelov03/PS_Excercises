@@ -1,18 +1,16 @@
 using System.Windows;
 using DataLayer.Services;
 using UI.ViewModels;
+using DataLayer.Database;
 
 namespace UI.Windows
 {
     public partial class LoginWindow : Window
     {
-        private readonly LoginViewModel _viewModel;
-
-        public LoginWindow(IUserService userService)
+        public LoginWindow(IUserService userService, DatabaseContext dbContext)
         {
             InitializeComponent();
-            _viewModel = new LoginViewModel(userService);
-            DataContext = _viewModel;
+            DataContext = new LoginViewModel(userService, dbContext);
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

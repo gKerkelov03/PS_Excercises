@@ -1,16 +1,24 @@
 ﻿using DataLayer.Database;
-using DataLayer.Logger;
 using DataLayer.Model;
 using Welcome.Others;
+using Microsoft.EntityFrameworkCore;
 
 class Program
 {
     static void Main(string[] args)
     {
-        using var context = new DatabaseContext();
+        var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+        var solutionFolderName = "PS_Excercises";
+        var databaseFileName = "database.db";
+        var documentsFolderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+        var solutionFolder = System.IO.Path.Combine(documentsFolderPath, solutionFolderName);
+        var databasePath = System.IO.Path.Combine(solutionFolder, databaseFileName);
+        optionsBuilder.UseSqlite($"Data Source={databasePath}");
+        
+        using var context = new DatabaseContext(optionsBuilder.Options);
         context.Database.EnsureCreated();
         
-        var logger = new Logger(context);
+        var logger = new DataLayer.Logger(context);
         
         while (true)
         {
@@ -48,7 +56,7 @@ class Program
         }
     }
     
-    static void ListAllUsers(DatabaseContext context, Logger logger)
+    static void ListAllUsers(DatabaseContext context, DataLayer.Logger logger)
     {
         var users = context.Users.ToList();
         Console.WriteLine("\nAll Users:");
@@ -56,10 +64,10 @@ class Program
         {
             Console.WriteLine($"ID: {user.Id}, Name: {user.Name}, Role: {user.Role}");
         }
-        logger.LogAction("List Users", "Retrieved all users", "System");
+        logger.LogInfo("Retrieved all users");
     }
     
-    static void AddNewUser(DatabaseContext context, Logger logger)
+    static void AddNewUser(DatabaseContext context, DataLayer.Logger logger)
     {
         Console.Write("Enter username: ");
         var username = Console.ReadLine();
@@ -78,11 +86,11 @@ class Program
         context.Users.Add(newUser);
         context.SaveChanges();
         
-        logger.LogAction("Add User", $"Added new user: {username}", "System");
+        logger.LogInfo($"Added new user: {username}");
         Console.WriteLine("User added successfully!");
     }
     
-    static void DeleteUser(DatabaseContext context, Logger logger)
+    static void DeleteUser(DatabaseContext context, DataLayer.Logger logger)
     {
         Console.Write("Enter username to delete: ");
         var username = Console.ReadLine();
@@ -92,22 +100,23 @@ class Program
         {
             context.Users.Remove(user);
             context.SaveChanges();
-            logger.LogAction("Delete User", $"Deleted user: {username}", "System");
+            logger.LogInfo($"Deleted user: {username}");
             Console.WriteLine("User deleted successfully!");
         }
         else
         {
             Console.WriteLine("User not found!");
+            logger.LogWarning($"Attempted to delete non-existent user: {username}");
         }
     }
     
     static void ListAllLogs(DatabaseContext context)
     {
         var logs = context.LogEntries.OrderByDescending(l => l.Timestamp).ToList();
-        Console.WriteLine("\nAll Logs:");
+        Console.WriteLine("\nSystem Logs:");
         foreach (var log in logs)
         {
-            Console.WriteLine($"ID: {log.Id}, Action: {log.Action}, Details: {log.Details}, Username: {log.Username}, Timestamp: {log.Timestamp}");
+            Console.WriteLine($"[{log.Timestamp}] [{log.Level}] {log.Message} (by {log.Username})");
         }
     }
 }

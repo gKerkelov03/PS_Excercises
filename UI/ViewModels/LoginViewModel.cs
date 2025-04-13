@@ -3,19 +3,22 @@ using DataLayer.Services;
 using UI.Commands;
 using UI.Windows;
 using Welcome.Model;
+using DataLayer.Database;
 
 namespace UI.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
         private readonly IUserService _userService;
-        private string _username;
-        private string _password;
-        private LoginCommand _loginCommand;
+        private readonly DatabaseContext _dbContext;
+        private string _username = string.Empty;
+        private string _password = string.Empty;
+        private readonly LoginCommand _loginCommand;
 
-        public LoginViewModel(IUserService userService)
+        public LoginViewModel(IUserService userService, DatabaseContext dbContext)
         {
             _userService = userService;
+            _dbContext = dbContext;
             _loginCommand = new LoginCommand(this);
         }
 
@@ -45,7 +48,7 @@ namespace UI.ViewModels
             if (isValid)
             {
                 var user = await _userService.GetUserByNameAsync(Username);
-                var mainWindow = new MainWindow(_userService, user);
+                var mainWindow = new MainWindow(_userService, _dbContext, user);
                 mainWindow.Show();
                 
                 // Close the login window

@@ -59,7 +59,7 @@ namespace UI.Windows
             {
                 if (_existingUser != null)
                 {
-                    // Get the existing database user to ensure we have the correct ID
+                    // Update existing user
                     var existingDbUser = await _userService.GetUserByIdAsync(_existingUser.Id);
                     if (existingDbUser != null)
                     {
@@ -78,7 +78,8 @@ namespace UI.Windows
                 }
                 else
                 {
-                    var dbUser = new DatabaseUser
+                    // Create new user
+                    var newUser = new DatabaseUser
                     {
                         Name = UsernameTextBox.Text,
                         Password = PasswordBox.Password,
@@ -86,7 +87,7 @@ namespace UI.Windows
                         Expires = ExpiresDatePicker.SelectedDate.Value
                     };
                     
-                    await _userService.AddUserAsync(dbUser);
+                    await _userService.AddUserAsync(newUser);
                 }
 
                 DialogResult = true;

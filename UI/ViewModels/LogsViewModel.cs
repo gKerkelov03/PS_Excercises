@@ -7,7 +7,7 @@ namespace UI.ViewModels
     public class LogsViewModel : ViewModelBase
     {
         private ObservableCollection<LogEntry> _logs;
-        private LogEntry _selectedLog;
+        private LogEntry? _selectedLog;
 
         public LogsViewModel()
         {
@@ -20,7 +20,7 @@ namespace UI.ViewModels
             private set => SetProperty(ref _logs, value);
         }
 
-        public LogEntry SelectedLog
+        public LogEntry? SelectedLog
         {
             get => _selectedLog;
             set => SetProperty(ref _selectedLog, value);
