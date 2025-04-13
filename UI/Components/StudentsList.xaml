@@ -9,10 +9,10 @@
     <Grid>
         <DataGrid Name="students" ItemsSource="{Binding}" >
             
-           <!-- <DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding Id}"></DataGridTextColumn>  -->
-            <!-- <DataGridTextColumn Header="Names" IsReadOnly="True" Binding="{Binding Name}"></DataGridTextColumn> --> 
-            <!-- <DataGridTextColumn Header="Role" IsReadOnly="True" Binding="{Binding Role}"></DataGridTextColumn> -->
-            <!-- <DataGridTextColumn Header="Expires In" IsReadOnly="True" Binding="{Binding Expires}"></DataGridTextColumn> -->
+            <!--<DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding Id}"></DataGridTextColumn>  
+             <DataGridTextColumn Header="Names" IsReadOnly="True" Binding="{Binding Name}"></DataGridTextColumn>  
+             <DataGridTextColumn Header="Role" IsReadOnly="True" Binding="{Binding Role}"></DataGridTextColumn> 
+             <DataGridTextColumn Header="Expires In" IsReadOnly="True" Binding="{Binding Expires}"></DataGridTextColumn>--> 
         </DataGrid>
     </Grid>
 </UserControl>

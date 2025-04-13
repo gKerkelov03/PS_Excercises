@@ -7,12 +7,15 @@ namespace DataLayer.Database;
 public class DatabaseContext : DbContext
 {
   public DbSet<DatabaseUser> Users { get; set; }
+  public DbSet<LogEntry> LogEntries { get; set; }
   
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
-    var solutionFolder =  Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-    var databaseFile = "welcome.db";
-    var databasePath = Path.Combine(solutionFolder, databaseFile);
+    var solutionFolderName = "PS_Excercises";
+    var databaseFileName = "database.db";
+    var documentsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+    var solutionFolder =  Path.Combine(documentsFolderPath, solutionFolderName);
+    var databasePath = Path.Combine(solutionFolder, databaseFileName);
     optionsBuilder.UseSqlite($"Data Source={databasePath}");
   }
 

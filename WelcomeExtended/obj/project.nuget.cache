@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "km4nvqe0lvU=",
+  "dgSpecHash": "NHSoKgZjC/o=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Georgi\\Documents\\Excercises\\WelcomeExtended\\WelcomeExtended.csproj",
+  "projectFilePath": "C:\\Users\\Georgi\\Documents\\PS_Excercises\\WelcomeExtended\\WelcomeExtended.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Georgi\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.0-preview.1.25080.5\\microsoft.extensions.dependencyinjection.10.0.0-preview.1.25080.5.nupkg.sha512",
     "C:\\Users\\Georgi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.0-preview.1.25080.5\\microsoft.extensions.dependencyinjection.abstractions.10.0.0-preview.1.25080.5.nupkg.sha512",
