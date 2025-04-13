@@ -32,6 +32,7 @@
                   Margin="10">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
+                <DataGridTextColumn Header="Password" Binding="{Binding Password, Converter={StaticResource PasswordConverter}}" Width="*"/>
                 <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
                 <DataGridTextColumn Header="Faculty Number" Binding="{Binding FacultyNumber}" Width="*"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>

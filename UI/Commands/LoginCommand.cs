@@ -16,9 +16,16 @@ namespace UI.Commands
 
         public bool CanExecute(object? parameter) => true;
 
-        public async void Execute(object? parameter)
+        public void Execute(object? parameter)
         {
-            await _viewModel.LoginAsync();
+            try
+            {
+                _viewModel.LoginAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error during login: {ex.Message}", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
     }
 } 

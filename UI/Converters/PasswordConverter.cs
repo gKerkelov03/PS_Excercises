@@ -6,15 +6,16 @@ namespace UI.Converters
 {
     public class PasswordConverter : IValueConverter
     {
-        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value?.ToString() is not string password)
-                return string.Empty;
-
-            return new string('*', password.Length);
+            if (value is string password)
+            {
+                return new string('*', password.Length);
+            }
+            return string.Empty;
         }
 
-        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

@@ -7,20 +7,25 @@ using DataLayer.Model;
 using DataLayer.Services;
 using UI.Commands;
 using UI.Windows;
+using DataLayer;
 
 namespace UI.ViewModels
 {
     public class DisciplineViewModel : ViewModelBase
     {
         private readonly IDisciplineService _disciplineService;
+        private readonly Logger _logger;
+        private readonly string _currentUsername;
         private ObservableCollection<Discipline> _disciplines;
         private Discipline _selectedDiscipline;
         private string _searchText = string.Empty;
         private string _statisticsText = string.Empty;
 
-        public DisciplineViewModel(IDisciplineService disciplineService)
+        public DisciplineViewModel(IDisciplineService disciplineService, Logger logger, string currentUsername)
         {
             _disciplineService = disciplineService;
+            _logger = logger;
+            _currentUsername = currentUsername;
             _disciplines = new ObservableCollection<Discipline>();
             
             AddDisciplineCommand = new AddDisciplineCommand(this);
@@ -94,10 +99,12 @@ namespace UI.ViewModels
             {
                 await _disciplineService.CreateDisciplineAsync(discipline);
                 await LoadDisciplinesAsync();
+                _logger.LogInfo($"Added new discipline: {discipline.Name}", _currentUsername);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error adding discipline: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error adding discipline: {ex.Message}", _currentUsername);
             }
         }
 
@@ -112,10 +119,12 @@ namespace UI.ViewModels
                 {
                     await _disciplineService.UpdateDisciplineAsync(SelectedDiscipline);
                     await LoadDisciplinesAsync();
+                    _logger.LogInfo($"Updated discipline: {SelectedDiscipline.Name}", _currentUsername);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error updating discipline: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _logger.LogError($"Error updating discipline: {ex.Message}", _currentUsername);
                 }
             }
         }
@@ -134,13 +143,16 @@ namespace UI.ViewModels
             {
                 try
                 {
+                    var disciplineName = SelectedDiscipline.Name;
                     await _disciplineService.DeleteDisciplineAsync(SelectedDiscipline.Id);
                     SelectedDiscipline = null;
                     await LoadDisciplinesAsync();
+                    _logger.LogInfo($"Deleted discipline: {disciplineName}", _currentUsername);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error deleting discipline: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _logger.LogError($"Error deleting discipline: {ex.Message}", _currentUsername);
                 }
             }
         }
@@ -148,6 +160,7 @@ namespace UI.ViewModels
         public async void ExecuteRefresh(object parameter)
         {
             await LoadDisciplinesAsync();
+            _logger.LogInfo("Refreshed disciplines list", _currentUsername);
         }
 
         private async Task LoadDisciplinesAsync()
@@ -161,6 +174,7 @@ namespace UI.ViewModels
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading disciplines: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error loading disciplines: {ex.Message}", _currentUsername);
             }
         }
 
@@ -197,6 +211,7 @@ namespace UI.ViewModels
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating statistics: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.LogError($"Error updating statistics: {ex.Message}", _currentUsername);
             }
         }
     }

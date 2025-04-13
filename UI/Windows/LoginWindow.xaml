@@ -22,16 +22,16 @@
 
         <StackPanel Grid.Row="1" Margin="0,0,0,10">
             <TextBlock Text="Username:" Margin="0,0,0,5"/>
-            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,0,0,20">
             <TextBlock Text="Password:" Margin="0,0,0,5"/>
-            <PasswordBox x:Name="PasswordBox" PasswordChanged="PasswordBox_PasswordChanged" />
+            <PasswordBox x:Name="PasswordBox" PasswordChanged="PasswordBox_PasswordChanged"/>
         </StackPanel>
 
         <Button Grid.Row="3" 
-                Content="Login" 
+                Content="Login"
                 Command="{Binding LoginCommand}"
                 Width="100" 
                 Height="30"/>

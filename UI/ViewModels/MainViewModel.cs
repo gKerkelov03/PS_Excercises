@@ -117,8 +117,8 @@ namespace UI.ViewModels
                 if (result == MessageBoxResult.Yes)
                 {
                     await _userService.DeleteUserAsync(_selectedUser);
-                    await LoadUsersAsync();
                     _logger.LogInfo($"Deleted user: {_selectedUser.Username}", _currentUser.Username);
+                    await LoadUsersAsync();
                 }
             }
             catch (Exception ex)
@@ -129,7 +129,7 @@ namespace UI.ViewModels
         }
 
         public async Task EditUserAsync()
-        {
+        {   
             try
             {
                 if (_selectedUser == null)
@@ -186,10 +186,13 @@ namespace UI.ViewModels
         {
             try
             {
-                var disciplineManagementViewModel = new DisciplineManagementViewModel(_disciplineService);
-                var disciplineWindow = new DisciplineManagementWindow(disciplineManagementViewModel);
-                disciplineWindow.Show();
-                _logger.LogInfo("Opened discipline management", _currentUser.Username);
+                var disciplineViewModel = new DisciplineManagementViewModel(
+                    _disciplineService,
+                    _logger,
+                    _currentUser.Username);
+                var window = new DisciplineManagementWindow(disciplineViewModel);
+                window.Show();
+                _logger.LogInfo("Opened discipline management window", _currentUser.Username);
             }
             catch (Exception ex)
             {

@@ -16,6 +16,7 @@ namespace UI.ViewModels
         private readonly Logger _logger;
         private string _username = string.Empty;
         private string _password = string.Empty;
+        private bool _isLoggingIn;
 
         public ICommand LoginCommand { get; }
 
@@ -47,8 +48,21 @@ namespace UI.ViewModels
             }
         }
 
+        public bool IsLoggingIn
+        {
+            get => _isLoggingIn;
+            set
+            {
+                _isLoggingIn = value;
+                OnPropertyChanged();
+            }
+        }
+
         public async Task LoginAsync()
         {
+            if (IsLoggingIn)
+                return;
+
             if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
             {
                 MessageBox.Show("Please enter both username and password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -57,6 +71,7 @@ namespace UI.ViewModels
 
             try
             {
+                IsLoggingIn = true;
                 var isValid = await _userService.ValidateUserAsync(Username, Password);
                 if (isValid)
                 {
@@ -66,7 +81,16 @@ namespace UI.ViewModels
                         _logger.LogInfo($"User {Username} logged in successfully", Username);
                         var mainWindow = new MainWindow(_userService, _dbContext, user);
                         mainWindow.Show();
-                        Application.Current.MainWindow.Close();
+                        
+                        // Find and close the login window
+                        foreach (Window window in Application.Current.Windows)
+                        {
+                            if (window is LoginWindow)
+                            {
+                                window.Close();
+                                break;
+                            }
+                        }
                     }
                 }
                 else
@@ -79,6 +103,10 @@ namespace UI.ViewModels
             {
                 _logger.LogError($"Error during login: {ex.Message}", Username);
                 MessageBox.Show($"Error during login: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsLoggingIn = false;
             }
         }
     }
