@@ -23,15 +23,15 @@
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,0,0,10">
-            <TextBox Text="{Binding DisciplineViewModel.SearchText, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                      Padding="5" Margin="0,0,0,0"/>
             <TextBlock Text="Search disciplines..." Foreground="Gray" Margin="5,0,0,0" 
                        VerticalAlignment="Center" IsHitTestVisible="False"
-                       Visibility="{Binding DisciplineViewModel.SearchText, Converter={StaticResource StringToVisibilityConverter}}"/>
+                       Visibility="{Binding SearchText, Converter={StaticResource StringToVisibilityConverter}}"/>
         </Grid>
 
-        <DataGrid Grid.Row="2" ItemsSource="{Binding DisciplineViewModel.Disciplines}"
-                  SelectedItem="{Binding DisciplineViewModel.SelectedDiscipline}"
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Disciplines}"
+                  SelectedItem="{Binding SelectedDiscipline}"
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
@@ -43,7 +43,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox Grid.Row="3" Text="{Binding DisciplineViewModel.StatisticsText}"
+        <TextBox Grid.Row="3" Text="{Binding StatisticsText}"
                  Margin="0,10,0,0" Padding="5" IsReadOnly="True"
                  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
                  Height="100"/>

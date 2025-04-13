@@ -12,6 +12,7 @@ using System.Windows.Input;
 using UI.Commands;
 using DataLayer;
 using DataLayer.Repositories;
+using System.Linq;
 
 namespace UI.ViewModels
 {
@@ -191,7 +192,15 @@ namespace UI.ViewModels
                     _logger,
                     _currentUser.Username);
                 var window = new DisciplineManagementWindow(disciplineViewModel);
-                window.Show();
+                
+                // Find the main window and set it as owner if it exists
+                var mainWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is MainWindow);
+                if (mainWindow != null)
+                {
+                    window.Owner = mainWindow;
+                }
+                
+                window.ShowDialog();
                 _logger.LogInfo("Opened discipline management window", _currentUser.Username);
             }
             catch (Exception ex)

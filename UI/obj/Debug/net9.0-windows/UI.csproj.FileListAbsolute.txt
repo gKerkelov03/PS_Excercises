@@ -81,3 +81,4 @@ C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\refint\UI.dl
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI.pdb
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\UI.genruntimeconfig.cache
 C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\ref\UI.dll
+C:\Users\Georgi\Documents\PS_Excercises\UI\obj\Debug\net9.0-windows\App.baml

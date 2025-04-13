@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using DataLayer.Database;
@@ -44,7 +45,7 @@ public partial class App : Application
         // Register services
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IDisciplineService, DisciplineService>();
-        services.AddScoped<Logger>();
+        services.AddSingleton<Logger>();
 
         // Register ViewModels
         services.AddTransient<LoginViewModel>();
@@ -75,5 +76,16 @@ public partial class App : Application
 
         var loginWindow = _serviceProvider.GetRequiredService<LoginWindow>();
         loginWindow.Show();
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        base.OnExit(e);
+        
+        // Dispose of the service provider
+        if (_serviceProvider is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
     }
 }
