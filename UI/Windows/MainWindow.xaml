@@ -1,17 +1,36 @@
-﻿<Window x:Class="UI.MainWindow"
+﻿<Window x:Class="UI.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UI"
-        xmlns:local2="clr-namespace:UI.Components"
-        
+        xmlns:local="clr-namespace:UI.Windows"
         mc:Ignorable="d"
-        Title="List of all students" 
-        WindowStartupLocation="CenterScreen" 
-        Height="450"
-        Width="800">
-    <Grid> 
-        <local2:StudentsList x:Name="StudentsList" Padding="2"/>
+        Title="User Management" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Button Content="Add User" Command="{Binding AddUserCommand}" Margin="0,0,10,0" Width="100"/>
+            <Button Content="Edit User" Command="{Binding EditUserCommand}" Margin="0,0,10,0" Width="100"/>
+            <Button Content="Delete User" Command="{Binding DeleteUserCommand}" Margin="0,0,10,0" Width="100"/>
+            <Button Content="View Logs" Command="{Binding ViewLogsCommand}" Width="100"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding Users}" 
+                  SelectedItem="{Binding SelectedUser}"
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True"
+                  Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Username" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="100"/>
+                <DataGridTextColumn Header="Expires" Binding="{Binding Expires}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

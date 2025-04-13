@@ -1,0 +1,23 @@
+<Window x:Class="UI.Windows.LogsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.Windows"
+        mc:Ignorable="d"
+        Title="Logs" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="LogsDataGrid" 
+                  ItemsSource="{Binding Logs}"
+                  SelectedItem="{Binding SelectedLog}"
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True"
+                  MouseDoubleClick="LogsDataGrid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date" Binding="{Binding Timestamp, StringFormat=dd.MM.yyyy HH:mm:ss}" Width="150"/>
+                <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="100"/>
+                <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window> 
